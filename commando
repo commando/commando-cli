@@ -1,0 +1,111 @@
+#!/bin/bash
+# @description The Commando.io command line interface.
+# @version 0.1
+#
+# Commando.io
+# Copyright 2015 NodeSocket, LLC.
+# All rights reserved.
+
+set -e
+
+VERSION="0.1"
+
+COMMAND=$1
+NETRC=~/.netrc
+CURL_COMMAND="curl --netrc --user-agent Commando-Cli/$VERSION"
+BASE_URL="https://api.commando.io/v1"
+
+function check_auth {
+    if ! grep -Fxq "machine api.commando.io" $NETRC; then
+        printf "You are not authenticated. To authenticate, run:\n\tcommando auth"
+        exit 1
+    fi
+}
+
+case "$COMMAND" in
+    "auth")
+
+        if grep -Fxq "machine api.commando.io" $NETRC; then
+            printf "You are already authenticated. To unauthenticate, run:\n\tcommando unauth"
+            exit 1
+        fi
+
+        read -p "Enter your account alias: " ACCOUNT_ALIAS
+        read -s -p "Provide a valid API token secret key for $ACCOUNT_ALIAS.commando.io: " SECRET_KEY
+
+        cat <<EOF >> $NETRC
+machine api.commando.io
+  login $ACCOUNT_ALIAS
+  password $SECRET_KEY
+EOF
+        exit 0;;
+
+    "unauth")
+
+        check_auth
+
+        sed -i '' '/^machine api.commando.io$/{N;N;d;}' $NETRC
+        exit 0;;
+
+    "servers")
+
+        check_auth
+
+        SERVER=$2
+
+        if [ "$SERVER" == "" ]; then
+            $CURL_COMMAND $BASE_URL/servers
+        else
+            $CURL_COMMAND $BASE_URL/servers/"$SERVER"
+        fi
+
+        ;;
+
+    "groups")
+
+        check_auth
+
+        GROUP=$2
+
+        if [ "$GROUP" == "" ]; then
+            $CURL_COMMAND $BASE_URL/groups
+        else
+            $CURL_COMMAND $BASE_URL/groups/"$GROUP"
+        fi
+
+        ;;
+
+    "recipes")
+
+        check_auth
+
+        RECIPE=$2
+
+        if [ "$RECIPE" == "" ]; then
+            $CURL_COMMAND $BASE_URL/recipes
+        else
+            $CURL_COMMAND $BASE_URL/recipes/"$RECIPE"
+        fi
+
+        ;;
+
+    "execute")
+
+        RECIPE=$2
+
+        if [ "$RECIPE" == "" ]; then
+            printf "Missing required argument recipe.\nUsage:\n\tcommando execute <recipe-id>"
+            exit 1
+        fi
+
+        check_auth
+
+        ;;
+
+    *)
+
+        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id>"
+        exit 1
+        ;;
+
+esac
