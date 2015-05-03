@@ -1,7 +1,7 @@
-# Commando.io CLI
+# COMMANDO.IO CLI
 The Commando.io command line interface.
 
-** STILL UNDER DEVELOPMENT **
+#### STILL UNDER DEVELOPMENT
 
 ````
 Usage:
