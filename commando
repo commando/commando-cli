@@ -1,6 +1,5 @@
 #!/bin/bash
 # @description The Commando.io command line interface.
-# @version 0.1
 #
 # Commando.io
 # Copyright 2015 NodeSocket, LLC.
@@ -8,16 +7,17 @@
 
 set -e
 
-VERSION="0.1"
+VERSION="0.2"
 
 COMMAND=$1
 NETRC=~/.netrc
+
 CURL_COMMAND="curl --netrc --user-agent Commando-Cli/$VERSION"
 BASE_URL="https://api.commando.io/v1"
 
 function check_auth {
     if ! grep -Fxq "machine api.commando.io" $NETRC; then
-        printf "You are not authenticated. To authenticate, run:\n\tcommando auth"
+        printf "You are not authenticated. To authenticate, run:\n\n\tcommando auth"
         exit 1
     fi
 }
@@ -26,7 +26,7 @@ case "$COMMAND" in
     "auth")
 
         if grep -Fxq "machine api.commando.io" $NETRC; then
-            printf "You are already authenticated. To unauthenticate, run:\n\tcommando unauth"
+            printf "You are already authenticated. To unauthenticate, run:\n\n\tcommando unauth"
             exit 1
         fi
 
@@ -52,12 +52,12 @@ EOF
 
         check_auth
 
-        SERVER=$2
+        SERVER_ID=$2
 
-        if [ "$SERVER" == "" ]; then
+        if [ "$SERVER_ID" == "" ]; then
             $CURL_COMMAND $BASE_URL/servers
         else
-            $CURL_COMMAND $BASE_URL/servers/"$SERVER"
+            $CURL_COMMAND $BASE_URL/servers/"$SERVER_ID"
         fi
 
         ;;
@@ -66,12 +66,12 @@ EOF
 
         check_auth
 
-        GROUP=$2
+        GROUP_ID=$2
 
-        if [ "$GROUP" == "" ]; then
+        if [ "$GROUP_ID" == "" ]; then
             $CURL_COMMAND $BASE_URL/groups
         else
-            $CURL_COMMAND $BASE_URL/groups/"$GROUP"
+            $CURL_COMMAND $BASE_URL/groups/"$GROUP_ID"
         fi
 
         ;;
@@ -80,32 +80,70 @@ EOF
 
         check_auth
 
-        RECIPE=$2
+        RECIPE_ID=$2
 
-        if [ "$RECIPE" == "" ]; then
+        if [ "$RECIPE_ID" == "" ]; then
             $CURL_COMMAND $BASE_URL/recipes
         else
-            $CURL_COMMAND $BASE_URL/recipes/"$RECIPE"
+            $CURL_COMMAND $BASE_URL/recipes/"$RECIPE_ID"
         fi
 
         ;;
 
     "execute")
 
-        RECIPE=$2
+        RECIPE_ID=$2
 
-        if [ "$RECIPE" == "" ]; then
-            printf "Missing required argument recipe.\nUsage:\n\tcommando execute <recipe-id>"
+        if [ "$RECIPE_ID" == "" ]; then
+            printf "Missing required argument recipe id.\n\nUsage:\n\tcommando execute <recipe-id>"
             exit 1
         fi
 
         check_auth
 
+        $CURL_COMMAND $BASE_URL/recipes/"$RECIPE_ID"/execute
+
+        ;;
+
+    "execution-queue")
+
+        EXECUTION_QUEUE_ID=$2
+
+        if [ "$EXECUTION_QUEUE_ID" == "" ]; then
+            printf "Missing required argument execution queue id.\n\nUsage:\n\tcommando execution-queue <execution-queue-id>"
+            exit 1
+        fi
+
+        check_auth
+
+        $CURL_COMMAND $BASE_URL/execution-queue/"$EXECUTION_QUEUE_ID"
+
+        ;;
+
+    "executions")
+
+        EXECUTION_ID=$2
+
+        if [ "$EXECUTION_ID" == "" ]; then
+            printf "Missing required argument execution id.\n\nUsage:\n\tcommando executions <execution-id>"
+            exit 1
+        fi
+
+        check_auth
+
+        $CURL_COMMAND $BASE_URL/executions/"$EXECUTION_ID"
+
+        ;;
+
+    "version" | "-v" | "--version")
+
+        echo $VERSION
+
         ;;
 
     *)
 
-        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id>"
+        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id>\n\tcommando execution-queue <execution-queue-id>\n\tcommando executions <execution-id>\n\tcommando version"
         exit 1
         ;;
 
