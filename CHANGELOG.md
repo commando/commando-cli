@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+### 0.4 - *5/4/2015*
+- Handle the case where `~/.netrc` does not exist.
+- Set permissions of `~/.netrc` to `600` when running the `auth` command.
+
 ### 0.3 - *5/4/2015*
 - Added `-X POST` to the curl request for command `execute`.
 

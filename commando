@@ -7,7 +7,7 @@
 
 set -e
 
-VERSION="0.3"
+VERSION="0.4"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -16,7 +16,7 @@ CURL_COMMAND="curl --netrc --user-agent Commando-Cli/$VERSION"
 BASE_URL="https://api.commando.io/v1"
 
 function check_auth {
-    if ! grep -Fxq "machine api.commando.io" $NETRC; then
+    if [ ! -e $NETRC ] || ! grep -Fxq "machine api.commando.io" $NETRC; then
         printf "You are not authenticated. To authenticate, run:\n\n\tcommando auth"
         exit 1
     fi
@@ -25,7 +25,7 @@ function check_auth {
 case "$COMMAND" in
     "auth")
 
-        if grep -Fxq "machine api.commando.io" $NETRC; then
+        if [ -e $NETRC ] && grep -Fxq "machine api.commando.io" $NETRC; then
             ACCOUNT_ALIAS=$(awk '/api.commando.io/{getline; print $2}' $NETRC)
             printf "You are already authenticated on %s.commando.io. To unauthenticate, run:\n\n\tcommando unauth" "$ACCOUNT_ALIAS"
             exit 1
@@ -39,6 +39,9 @@ machine api.commando.io
   login $ACCOUNT_ALIAS
   password $SECRET_KEY
 EOF
+
+        chmod 600 $NETRC
+
         ;;
 
     "unauth")
