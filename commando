@@ -38,14 +38,15 @@ machine api.commando.io
   login $ACCOUNT_ALIAS
   password $SECRET_KEY
 EOF
-        exit 0;;
+        ;;
 
     "unauth")
 
         check_auth
 
         sed -i '' '/^machine api.commando.io$/{N;N;d;}' $NETRC
-        exit 0;;
+
+        ;;
 
     "servers")
 
