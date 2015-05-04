@@ -7,7 +7,7 @@
 
 set -e
 
-VERSION="0.2"
+VERSION="0.3"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -26,7 +26,8 @@ case "$COMMAND" in
     "auth")
 
         if grep -Fxq "machine api.commando.io" $NETRC; then
-            printf "You are already authenticated. To unauthenticate, run:\n\n\tcommando unauth"
+            ACCOUNT_ALIAS=$(awk '/api.commando.io/{getline; print $2}' $NETRC)
+            printf "You are already authenticated on %s.commando.io. To unauthenticate, run:\n\n\tcommando unauth" "$ACCOUNT_ALIAS"
             exit 1
         fi
 
@@ -101,7 +102,7 @@ EOF
 
         check_auth
 
-        $CURL_COMMAND $BASE_URL/recipes/"$RECIPE_ID"/execute
+        $CURL_COMMAND $BASE_URL/recipes/"$RECIPE_ID"/execute -X POST
 
         ;;
 
