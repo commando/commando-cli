@@ -1,7 +1,7 @@
+### STILL UNDER DEVELOPMENT
+
 # COMMANDO.IO CLI
 The Commando.io command line interface.
-
-#### STILL UNDER DEVELOPMENT
 
 ````
 Usage:
@@ -11,6 +11,9 @@ Usage:
     commando groups [<group-id>]
     commando recipes [<recipe-id>]
     commando execute <recipe-id>
+    commando execution-queue <execution-queue-id>
+    commando executions <execution-id>
+    commando version
 ````
 
 Current Version
