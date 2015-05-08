@@ -17,7 +17,7 @@ Usage:
 
 Requirements
 ------------
-*  bash *(w/ sed, grep)*
+*  bash *(with sed, grep, mktemp)*
 *  curl
 
 Installation
