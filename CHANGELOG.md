@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+### 0.7 - *5/7/2015*
+- Changes to `README.md`.
+
 ### 0.6 - *5/7/2015*
 - Fixed bug with command `unauth` on Linux versions of sed.
 
