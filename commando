@@ -7,7 +7,7 @@
 
 set -e
 
-VERSION="0.5"
+VERSION="0.6"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -57,7 +57,10 @@ EOF
 
         check_auth
 
-        sed -i '' '/^machine api.commando.io$/{N;N;d;}' $NETRC
+        TMP=$(mktemp ~/.netrc.XXXXXX)
+        sed '/^machine api.commando.io$/{N;N;d;}' $NETRC > "$TMP"
+        mv "$TMP" "$NETRC"
+        rm -f "$TMP"
 
         ;;
 

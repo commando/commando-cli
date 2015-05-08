@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+### 0.6 - *5/7/2015*
+- Fixed bug with command `unauth` on Linux versions of sed.
+
 ### 0.5 - *5/7/2015*
 - Finished `execute` command.
 - Created a curl wrapper function `curl_request`.
