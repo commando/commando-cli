@@ -8,7 +8,7 @@ Usage:
     commando servers [<server-id>]
     commando groups [<group-id>]
     commando recipes [<recipe-id>]
-    commando execute <recipe-id>
+    commando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)
     commando execution-queue <execution-queue-id>
     commando executions <execution-id>
     commando version
