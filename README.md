@@ -12,6 +12,7 @@ Usage:
     commando execution-queue <execution-queue-id>
     commando executions <execution-id>
     commando version
+    commando help
 ````
 
 Installation
