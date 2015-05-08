@@ -15,6 +15,11 @@ Usage:
     commando (help | --help)
 ````
 
+Requirements
+------------
+*  bash *(w/ sed, grep)*
+*  curl
+
 Installation
 ------------
 ````
