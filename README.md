@@ -14,6 +14,29 @@ Usage:
     commando version
 ````
 
+Installation
+------------
+````
+git clone https://github.com/commando/commando-cli.git
+chmod +x commando
+````
+
+Authentication
+--------------
+
+````
+➜  ./commando auth
+Enter your account alias: demo
+Provide a valid API token secret key for demo.commando.io: %
+````
+
+Unauthentication
+-----------------
+
+````
+➜  ./commando unauth
+````
+
 Current Version
 ---------------
 
