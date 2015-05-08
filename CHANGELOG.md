@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+### 0.5 - *5/7/2015*
+- Finished `execute` command.
+- Created a curl wrapper function `curl_request`.
+
 ### 0.4 - *5/4/2015*
 - Handle the case where `~/.netrc` does not exist.
 - Set permissions of `~/.netrc` to `600` when running the `auth` command.

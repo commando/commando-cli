@@ -7,18 +7,27 @@
 
 set -e
 
-VERSION="0.4"
+VERSION="0.5"
 
 COMMAND=$1
 NETRC=~/.netrc
-
-CURL_COMMAND="curl --netrc --user-agent Commando-Cli/$VERSION"
-BASE_URL="https://api.commando.io/v1"
 
 function check_auth {
     if [ ! -e $NETRC ] || ! grep -Fxq "machine api.commando.io" $NETRC; then
         printf "You are not authenticated. To authenticate, run:\n\n\tcommando auth"
         exit 1
+    fi
+}
+
+# First parameter (required): url
+# Second parameter [optional]: Post data
+function curl_request() {
+    CURL_VERSION=$(curl --version | sed -n 1p)
+
+    if [ "$2" != "" ]; then
+        curl --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://api.commando.io/v1/$1" -X POST --data "$2"
+    else
+        curl --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://api.commando.io/v1/$1"
     fi
 }
 
@@ -59,9 +68,9 @@ EOF
         SERVER_ID=$2
 
         if [ "$SERVER_ID" == "" ]; then
-            $CURL_COMMAND $BASE_URL/servers
+            curl_request "servers"
         else
-            $CURL_COMMAND $BASE_URL/servers/"$SERVER_ID"
+            curl_request "servers/$SERVER_ID"
         fi
 
         ;;
@@ -73,9 +82,9 @@ EOF
         GROUP_ID=$2
 
         if [ "$GROUP_ID" == "" ]; then
-            $CURL_COMMAND $BASE_URL/groups
+            curl_request "groups"
         else
-            $CURL_COMMAND $BASE_URL/groups/"$GROUP_ID"
+            curl_request "groups/$GROUP_ID"
         fi
 
         ;;
@@ -87,9 +96,9 @@ EOF
         RECIPE_ID=$2
 
         if [ "$RECIPE_ID" == "" ]; then
-            $CURL_COMMAND $BASE_URL/recipes
+            curl_request "recipes"
         else
-            $CURL_COMMAND $BASE_URL/recipes/"$RECIPE_ID"
+            curl_request "recipes/$RECIPE_ID"
         fi
 
         ;;
@@ -99,13 +108,36 @@ EOF
         RECIPE_ID=$2
 
         if [ "$RECIPE_ID" == "" ]; then
-            printf "Missing required argument recipe id.\n\nUsage:\n\tcommando execute <recipe-id>"
+            printf "Missing required argument recipe id.\n\nUsage:\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)"
             exit 1
         fi
 
         check_auth
 
-        $CURL_COMMAND $BASE_URL/recipes/"$RECIPE_ID"/execute -X POST
+        OPTS=$3
+
+        # Split on equals
+        SPLIT=(${OPTS//=/ })
+
+        # If the array length is greater than 0
+        if [ ${#SPLIT[@]} -gt 0 ]; then
+            # --server option set
+            if [ ${SPLIT[0]} == "--server" ]; then
+                SERVER=${SPLIT[1]}
+            # --groups option set
+            elif [ ${SPLIT[0]} == "--groups" ]; then
+                GROUP=${SPLIT[1]}
+            fi
+        fi
+
+        if [ "$SERVER" != "" ]; then
+            curl_request "recipes/$RECIPE_ID/execute" "server=$SERVER"
+        elif [ "$GROUP" != "" ]; then
+            curl_request "recipes/$RECIPE_ID/execute" "groups[]=$GROUP"
+        else
+            printf "Missing or invalid option.\n\nUsage:\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)"
+            exit 1
+        fi
 
         ;;
 
@@ -120,7 +152,7 @@ EOF
 
         check_auth
 
-        $CURL_COMMAND $BASE_URL/execution-queue/"$EXECUTION_QUEUE_ID"
+        curl_request "execution-queue/$EXECUTION_QUEUE_ID"
 
         ;;
 
@@ -135,7 +167,7 @@ EOF
 
         check_auth
 
-        $CURL_COMMAND $BASE_URL/executions/"$EXECUTION_ID"
+        curl_request "executions/$EXECUTION_ID"
 
         ;;
 
@@ -147,7 +179,7 @@ EOF
 
     *)
 
-        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id>\n\tcommando execution-queue <execution-queue-id>\n\tcommando executions <execution-id>\n\tcommando version"
+        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)\n\tcommando execution-queue <execution-queue-id>\n\tcommando executions <execution-id>\n\tcommando version"
         exit 1
         ;;
 

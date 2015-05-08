@@ -1,5 +1,3 @@
-### STILL UNDER DEVELOPMENT
-
 # COMMANDO.IO CLI
 The Commando.io command line interface.
 
