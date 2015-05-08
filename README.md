@@ -11,8 +11,8 @@ Usage:
     commando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)
     commando execution-queue <execution-queue-id>
     commando executions <execution-id>
-    commando version
-    commando help
+    commando (version | --version)
+    commando (help | --help)
 ````
 
 Installation

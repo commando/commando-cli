@@ -182,7 +182,7 @@ EOF
 
     *)
 
-        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)\n\tcommando execution-queue <execution-queue-id>\n\tcommando executions <execution-id>\n\tcommando version\n\tcommando help"
+        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)\n\tcommando execution-queue <execution-queue-id>\n\tcommando executions <execution-id>\n\tcommando (version | --version)\n\tcommando (help | --help)"
         exit 1
         ;;
 
