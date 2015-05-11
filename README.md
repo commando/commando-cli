@@ -70,7 +70,7 @@ Run An Execution
         "id": "usr_9ukjE540e4870aace5VFr",
         "ip_address": "198.199.100.1",
         "geo_ip": "San Francisco, California, United States",
-        "user_agent": "Commando-Cli/0.7 justin curl 7.37.1 (x86_64-apple-darwin14.0) libcurl/7.37.1 SecureTransport zlib/1.2.5"
+        "user_agent": "Commando-Cli/1.0 justin curl 7.37.1 (x86_64-apple-darwin14.0) libcurl/7.37.1 SecureTransport zlib/1.2.5"
     },
     "events": [
         {
