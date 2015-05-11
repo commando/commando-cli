@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Commando.io CLI by commando</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Commando.io CLI</h1>
+      <h2 class="project-tagline">The Commando.io command-line interface.</h2>
+      <a href="https://github.com/commando/commando-cli" class="btn">View on GitHub</a>
+      <a href="https://github.com/commando/commando-cli/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/commando/commando-cli/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="commandoio-cli" class="anchor" href="#commandoio-cli" aria-hidden="true"><span class="octicon octicon-link"></span></a>COMMANDO.IO CLI</h1>
+
+<p>The Commando.io command-line interface.</p>
+
+<pre><code>Usage:
+    commando auth
+    commando unauth
+    commando servers [&lt;server-id&gt;]
+    commando groups [&lt;group-id&gt;]
+    commando recipes [&lt;recipe-id&gt;]
+    commando execute &lt;recipe-id&gt; (--server=&lt;server-id&gt; | --groups=&lt;group-id&gt;,&lt;group-id&gt;,...)
+    commando execution-queue &lt;execution-queue-id&gt;
+    commando executions &lt;execution-id&gt;
+    commando (version | --version)
+    commando (help | --help)
+</code></pre>
+
+<h2>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h2>
+
+<ul>
+<li> bash <em>(with sed, grep, mktemp)</em>
+</li>
+<li> curl</li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<pre><code>cd ~
+git clone https://github.com/commando/commando-cli.git
+chmod +x commando-cli/commando
+</code></pre>
+
+<p>Optionally, you may create a symbolic link in <code>/usr/local/bin</code>:</p>
+
+<pre><code>ln -s ~/commando-cli/commando /usr/local/bin
+</code></pre>
+
+<h2>
+<a id="authentication" class="anchor" href="#authentication" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authentication</h2>
+
+<pre><code>➜ ./commando auth
+Enter your account alias: demo
+Provide a valid API token secret key for demo.commando.io: %
+</code></pre>
+
+<h2>
+<a id="unauthentication" class="anchor" href="#unauthentication" aria-hidden="true"><span class="octicon octicon-link"></span></a>Unauthentication</h2>
+
+<pre><code>➜ ./commando unauth
+</code></pre>
+
+<h2>
+<a id="run-an-execution" class="anchor" href="#run-an-execution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run An Execution</h2>
+
+<pre><code>➜ ./commando execute rec_3Fc5q540e480b672d38Ig --groups=grp_2Xk7x540e481bcb9c775d
+{
+    "id": "55500796179db98dd24ac149",
+    "url": "/v1/execution-queue/55500796179db98dd24ac149",
+    "status": "QUEUED",
+    "recipe": "rec_3Fc5q540e480b672d38Ig",
+    "groups": [
+        "grp_2Xk7x540e481bcb9c775d"
+    ],
+    "halt_on_stderr": false,
+    "notes": null,
+    "created": "2015-05-11T01:36:22Z",
+    "created_by": {
+        "id": "usr_9ukjE540e4870aace5VFr",
+        "ip_address": "198.199.100.1",
+        "geo_ip": "San Francisco, California, United States",
+        "user_agent": "Commando-Cli/1.0 justin curl 7.37.1 (x86_64-apple-darwin14.0) libcurl/7.37.1 SecureTransport zlib/1.2.5"
+    },
+    "events": [
+        {
+            "status": "QUEUED",
+            "date": "2015-05-11T01:36:22Z",
+            "meta": {
+                "queue": {
+                    "ids": [
+                        6147421832739411593
+                    ],
+                    "msg": "Messages put on queue.",
+                    "id": 6147421832739411593
+                }
+            }
+        }
+    ]
+}
+</code></pre>
+
+<h2>
+<a id="current-version" class="anchor" href="#current-version" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current Version</h2>
+
+<p><a href="https://github.com/commando/commando-cli/blob/master/VERSION">https://github.com/commando/commando-cli/blob/master/VERSION</a></p>
+
+<h2>
+<a id="changelog" class="anchor" href="#changelog" aria-hidden="true"><span class="octicon octicon-link"></span></a>Changelog</h2>
+
+<p><a href="https://github.com/commando/commando-cli/blob/master/CHANGELOG.md">https://github.com/commando/commando-cli/blob/master/CHANGELOG.md</a></p>
+
+<h2>
+<a id="support-bugs-and-feature-requests" class="anchor" href="#support-bugs-and-feature-requests" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support, Bugs, And Feature Requests</h2>
+
+<p>Create issues here in GitHub (<a href="https://github.com/commando/commando-cli/issues">https://github.com/commando/commando-cli/issues</a>).</p>
+
+<h2>
+<a id="license--legal" class="anchor" href="#license--legal" aria-hidden="true"><span class="octicon octicon-link"></span></a>License &amp; Legal</h2>
+
+<p>Copyright 2015 NodeSocket, LLC.</p>
+
+<p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:</p>
+
+<pre><code>http://www.apache.org/licenses/LICENSE-2.0
+</code></pre>
+
+<p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/commando/commando-cli">Commando.io CLI</a> is maintained by <a href="https://github.com/commando">commando</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
