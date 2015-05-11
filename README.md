@@ -1,5 +1,5 @@
 # COMMANDO.IO CLI
-The Commando.io command line interface.
+The Commando.io command-line interface.
 
 ````
 Usage:
@@ -23,8 +23,15 @@ Requirements
 Installation
 ------------
 ````
+cd ~
 git clone https://github.com/commando/commando-cli.git
 chmod +x commando-cli/commando
+````
+
+Optionally, you may create a symbolic link in `/usr/local/bin`:
+
+````
+ln -s ~/commando-cli/commando /usr/local/bin
 ````
 
 Authentication
@@ -42,6 +49,46 @@ Unauthentication
 ````
 ➜ ./commando unauth
 ````
+
+Run An Execution
+-----------------
+
+```
+➜ ./commando execute rec_3Fc5q540e480b672d38Ig --groups=grp_2Xk7x540e481bcb9c775d
+{
+    "id": "55500796179db98dd24ac149",
+    "url": "/v1/execution-queue/55500796179db98dd24ac149",
+    "status": "QUEUED",
+    "recipe": "rec_3Fc5q540e480b672d38Ig",
+    "groups": [
+        "grp_2Xk7x540e481bcb9c775d"
+    ],
+    "halt_on_stderr": false,
+    "notes": null,
+    "created": "2015-05-11T01:36:22Z",
+    "created_by": {
+        "id": "usr_9ukjE540e4870aace5VFr",
+        "ip_address": "198.199.100.1",
+        "geo_ip": "San Francisco, California, United States",
+        "user_agent": "Commando-Cli/0.7 justin curl 7.37.1 (x86_64-apple-darwin14.0) libcurl/7.37.1 SecureTransport zlib/1.2.5"
+    },
+    "events": [
+        {
+            "status": "QUEUED",
+            "date": "2015-05-11T01:36:22Z",
+            "meta": {
+                "queue": {
+                    "ids": [
+                        6147421832739411593
+                    ],
+                    "msg": "Messages put on queue.",
+                    "id": 6147421832739411593
+                }
+            }
+        }
+    ]
+}
+```
 
 Current Version
 ---------------

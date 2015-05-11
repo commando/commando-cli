@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+### 1.0 - *5/10/2015*
+- Stable release.
+
 ### 0.7 - *5/7/2015*
 - Changes to `README.md`.
 

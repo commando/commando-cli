@@ -1,5 +1,5 @@
 #!/bin/bash
-# @description The Commando.io command line interface.
+# @description The Commando.io command-line interface.
 #
 # Commando.io
 # Copyright 2015 NodeSocket, LLC.
@@ -7,7 +7,7 @@
 
 set -e
 
-VERSION="0.7"
+VERSION="1.0"
 
 COMMAND=$1
 NETRC=~/.netrc
