@@ -10,7 +10,7 @@ body {
   color: #606c71; }
 
 a {
-  color: #1e6bb8;
+  color: #53b2e5;
   text-decoration: none; }
   a:hover {
     text-decoration: underline; }
@@ -56,8 +56,7 @@ a {
 .page-header {
   color: #fff;
   text-align: center;
-  background-color: #159957;
-  background-image: linear-gradient(120deg, #155799, #159957); }
+  background-color: #31343c; }
 
 @media screen and (min-width: 64em) {
   .page-header {
@@ -112,7 +111,7 @@ a {
   margin-top: 2rem;
   margin-bottom: 1rem;
   font-weight: normal;
-  color: #159957; }
+  color: #31343c; }
 .main-content p {
   margin-bottom: 1em; }
 .main-content code {
@@ -129,7 +128,7 @@ a {
   font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
   color: #567482;
   word-wrap: normal;
-  background-color: #f3f6fa;
+  background-color: #f9f9f9;
   border: solid 1px #dce6f0;
   border-radius: 0.3rem; }
   .main-content pre > code {
