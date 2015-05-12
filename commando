@@ -7,7 +7,7 @@
 
 set -e
 
-VERSION="1.0"
+VERSION="1.1"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -25,9 +25,9 @@ function curl_request() {
     CURL_VERSION=$(curl --version | sed -n 1p)
 
     if [ "$2" != "" ]; then
-        curl --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://api.commando.io/v1/$1" -X POST --data "$2"
+        curl --silent --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://api.commando.io/v1/$1" -X POST --data "$2"
     else
-        curl --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://api.commando.io/v1/$1"
+        curl --silent --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://api.commando.io/v1/$1"
     fi
 }
 

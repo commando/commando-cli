@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+### 1.1 - *5/12/2015*
+- Added the `--silent` flag to curl to prevent progress output.
+
 ### 1.0 - *5/10/2015*
 - Stable release.
 
