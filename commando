@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # @description The Commando.io command-line interface.
 #
 # Commando.io
 # Copyright 2015 NodeSocket, LLC.
 # All rights reserved.
 
-set -e
+set -eo pipefail; [[ $TRACE ]] && set -x
 
-VERSION="1.1"
+VERSION="1.2"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -40,8 +40,8 @@ case "$COMMAND" in
             exit 1
         fi
 
-        read -p "Enter your account alias: " ACCOUNT_ALIAS
-        read -s -p "Provide a valid API token secret key for $ACCOUNT_ALIAS.commando.io: " SECRET_KEY
+        read -r -p "Enter your account alias: " ACCOUNT_ALIAS
+        read -r -s -p "Provide a valid API token secret key for $ACCOUNT_ALIAS.commando.io: " SECRET_KEY
 
         cat <<EOF >> $NETRC
 machine api.commando.io

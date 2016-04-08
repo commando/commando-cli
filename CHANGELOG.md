@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+### 1.2 - *4/7/2016*
+- Shellcheck and best practice cleanup.
+
 ### 1.1 - *5/12/2015*
 - Added the `--silent` flag to curl to prevent progress output.
 
