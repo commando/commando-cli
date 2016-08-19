@@ -2,7 +2,7 @@
 # @description The Commando.io command-line interface.
 #
 # Commando.io
-# Copyright 2015 NodeSocket, LLC.
+# Copyright 2016 NodeSocket, LLC.
 # All rights reserved.
 
 set -eo pipefail; [[ $TRACE ]] && set -x
