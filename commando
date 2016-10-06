@@ -7,13 +7,19 @@
 
 set -eo pipefail; [[ $TRACE ]] && set -x
 
-VERSION="1.2"
+VERSION="1.3"
 
 COMMAND=$1
 NETRC=~/.netrc
 
+if [ ! -z "$API_ENDPOINT" ]; then
+    API_ENDPOINT=$API_ENDPOINT
+else
+    API_ENDPOINT="api.commando.io"
+fi
+
 function check_auth {
-    if [ ! -e $NETRC ] || ! grep -Fxq "machine api.commando.io" $NETRC; then
+    if [ ! -e $NETRC ] || ! grep -Fxq "machine $API_ENDPOINT" $NETRC; then
         printf "You are not authenticated. To authenticate, run:\n\n\tcommando auth"
         exit 1
     fi
@@ -25,26 +31,26 @@ function curl_request() {
     CURL_VERSION=$(curl --version | sed -n 1p)
 
     if [ "$2" != "" ]; then
-        curl --silent --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://api.commando.io/v1/$1" -X POST --data "$2"
+        curl --silent --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://$API_ENDPOINT/v1/$1" -X POST --data "$2"
     else
-        curl --silent --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://api.commando.io/v1/$1"
+        curl --silent --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://$API_ENDPOINT/v1/$1"
     fi
 }
 
 case "$COMMAND" in
     "auth")
 
-        if [ -e $NETRC ] && grep -Fxq "machine api.commando.io" $NETRC; then
-            ACCOUNT_ALIAS=$(awk '/api.commando.io/{getline; print $2}' $NETRC)
-            printf "You are already authenticated on %s.commando.io. To unauthenticate, run:\n\n\tcommando unauth" "$ACCOUNT_ALIAS"
+        if [ -e $NETRC ] && grep -Fxq "machine $API_ENDPOINT" $NETRC; then
+            ACCOUNT_ALIAS=$(awk '/$API_ENDPOINT/{getline; print $2}' $NETRC)
+            printf "You are already authenticated. To unauthenticate, run:\n\n\tcommando unauth" "$ACCOUNT_ALIAS"
             exit 1
         fi
 
         read -r -p "Enter your account alias: " ACCOUNT_ALIAS
-        read -r -s -p "Provide a valid API token secret key for $ACCOUNT_ALIAS.commando.io: " SECRET_KEY
+        read -r -s -p "Provide a valid API token secret key: " SECRET_KEY
 
         cat <<EOF >> $NETRC
-machine api.commando.io
+machine $API_ENDPOINT
   login $ACCOUNT_ALIAS
   password $SECRET_KEY
 EOF
@@ -58,7 +64,7 @@ EOF
         check_auth
 
         TMP=$(mktemp ~/.netrc.XXXXXX)
-        sed '/^machine api.commando.io$/{N;N;d;}' $NETRC > "$TMP"
+        sed "/^machine $API_ENDPOINT$/{N;N;d;}" $NETRC > "$TMP"
         mv "$TMP" "$NETRC"
         rm -f "$TMP"
 

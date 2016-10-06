@@ -1,6 +1,15 @@
 CHANGELOG
 =========
 
+### 1.3 - *10/6/2016*
+- Added the ability to provide a custom api endpoint by setting the environmental variable `API_ENDPOINT`.
+
+Example:
+
+````shell
+API_ENDPOINT=api.foobar.com commando servers
+````
+
 ### 1.2 - *4/7/2016*
 - Shellcheck and best practice cleanup.
 
