@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+### 1.31 - *1/15/2017*
+- Changes to `README.md`.
+- Updated copyright to 2017. Happy New Year!
+
 ### 1.3 - *10/6/2016*
 - Added the ability to provide a custom api endpoint by setting the environmental variable `API_ENDPOINT`.
 

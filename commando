@@ -2,12 +2,12 @@
 # @description The Commando.io command-line interface.
 #
 # Commando.io
-# Copyright 2016 NodeSocket, LLC.
+# Copyright 2017 NodeSocket, LLC.
 # All rights reserved.
 
 set -eo pipefail; [[ $TRACE ]] && set -x
 
-VERSION="1.3"
+VERSION="1.31"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -42,7 +42,7 @@ case "$COMMAND" in
 
         if [ -e $NETRC ] && grep -Fxq "machine $API_ENDPOINT" $NETRC; then
             ACCOUNT_ALIAS=$(awk '/$API_ENDPOINT/{getline; print $2}' $NETRC)
-            printf "You are already authenticated. To unauthenticate, run:\n\n\tcommando unauth" "$ACCOUNT_ALIAS"
+            printf "You are already authenticated. To unauthenticate, run:\n\n\tcommando unauth"
             exit 1
         fi
 

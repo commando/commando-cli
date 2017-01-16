@@ -23,7 +23,7 @@ Requirements
 Installation
 ------------
 ````
-cd ~
+cd "$HOME"
 git clone https://github.com/commando/commando-cli.git
 chmod +x commando-cli/commando
 ````
@@ -31,7 +31,7 @@ chmod +x commando-cli/commando
 Optionally, you may create a symbolic link in `/usr/local/bin`:
 
 ````
-ln -s ~/commando-cli/commando /usr/local/bin
+ln -s "$HOME"/commando-cli/commando /usr/local/bin
 ````
 
 Authentication
@@ -40,7 +40,7 @@ Authentication
 ````
 ➜ ./commando auth
 Enter your account alias: demo
-Provide a valid API token secret key for demo.commando.io: %
+Provide a valid API token secret key: %
 ````
 
 Unauthentication
@@ -108,7 +108,7 @@ Create issues here in GitHub (https://github.com/commando/commando-cli/issues).
 License & Legal
 ---------------
 
-Copyright 2016 NodeSocket, LLC.
+Copyright 2017 NodeSocket, LLC.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:
 
