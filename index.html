@@ -63,14 +63,14 @@
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<pre><code>cd ~
+<pre><code>cd "$HOME"
 git clone https://github.com/commando/commando-cli.git
 chmod +x commando-cli/commando
 </code></pre>
 
 <p>Optionally, you may create a symbolic link in <code>/usr/local/bin</code>:</p>
 
-<pre><code>ln -s ~/commando-cli/commando /usr/local/bin
+<pre><code>ln -s "$HOME"/commando-cli/commando /usr/local/bin
 </code></pre>
 
 <h2>
@@ -78,7 +78,7 @@ chmod +x commando-cli/commando
 
 <pre><code>➜ ./commando auth
 Enter your account alias: demo
-Provide a valid API token secret key for demo.commando.io: %
+Provide a valid API token secret key: %
 </code></pre>
 
 <h2>
@@ -144,7 +144,7 @@ Provide a valid API token secret key for demo.commando.io: %
 <h2>
 <a id="license--legal" class="anchor" href="#license--legal" aria-hidden="true"><span class="octicon octicon-link"></span></a>License &amp; Legal</h2>
 
-<p>Copyright 2016 NodeSocket, LLC.</p>
+<p>Copyright 2017 NodeSocket, LLC.</p>
 
 <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:</p>
 
