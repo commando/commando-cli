@@ -2,10 +2,10 @@ CHANGELOG
 =========
 
 ### 1.4 - *3/1/2018*
-- Error exit code changed from `1` to `4` since codes 1-3 are reserved
-- `help` command now returns a successful `0` exit code instead of error
-- Added flag to curl `--location` to follow redirects
-- User-agent string passed to curl no longer sends `$USER`
+- Error exit code changed from `1` to `4` since codes 1-3 are reserved.
+- `help` command now returns a successful `0` exit code instead of error.
+- Added flag to curl `--location` to follow redirects.
+- User-agent string passed to curl no longer sends `$USER`.
 - Changes to `README.md`.
 - Updated copyright to 2018. Happy New Year!
  
