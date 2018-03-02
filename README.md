@@ -23,7 +23,6 @@ Requirements
 Installation
 ------------
 ````
-cd "$HOME"
 git clone https://github.com/commando/commando-cli.git
 chmod +x commando-cli/commando
 ````
@@ -31,7 +30,7 @@ chmod +x commando-cli/commando
 Optionally, you may create a symbolic link in `/usr/local/bin`:
 
 ````
-ln -s "$HOME"/commando-cli/commando /usr/local/bin
+sudo ln -s commando-cli/commando /usr/local/bin
 ````
 
 Authentication
@@ -70,7 +69,7 @@ Run An Execution
         "id": "usr_9ukjE540e4870aace5VFr",
         "ip_address": "198.199.100.1",
         "geo_ip": "San Francisco, California, United States",
-        "user_agent": "Commando-Cli/1.1 demo curl 7.37.1 (x86_64-apple-darwin14.0) libcurl/7.37.1 SecureTransport zlib/1.2.5"
+        "user_agent": "Commando-Cli/1.4 curl 7.37.1 (x86_64-apple-darwin14.0) libcurl/7.37.1 SecureTransport zlib/1.2.5"
     },
     "events": [
         {
@@ -108,7 +107,7 @@ Create issues here in GitHub (https://github.com/commando/commando-cli/issues).
 License & Legal
 ---------------
 
-Copyright 2017 NodeSocket, LLC.
+Copyright 2018 NodeSocket, LLC.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this work except in compliance with the License. You may obtain a copy of the License in the LICENSE file, or at:
 

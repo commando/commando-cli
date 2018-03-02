@@ -2,12 +2,12 @@
 # @description The Commando.io command-line interface.
 #
 # Commando.io
-# Copyright 2017 NodeSocket, LLC.
+# Copyright 2018 NodeSocket, LLC.
 # All rights reserved.
 
 set -eo pipefail; [[ $TRACE ]] && set -x
 
-VERSION="1.31"
+VERSION="1.4"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -21,7 +21,7 @@ fi
 function check_auth {
     if [ ! -e $NETRC ] || ! grep -Fxq "machine $API_ENDPOINT" $NETRC; then
         printf "You are not authenticated. To authenticate, run:\n\n\tcommando auth"
-        exit 1
+        exit 4
     fi
 }
 
@@ -31,9 +31,9 @@ function curl_request() {
     CURL_VERSION=$(curl --version | sed -n 1p)
 
     if [ "$2" != "" ]; then
-        curl --silent --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://$API_ENDPOINT/v1/$1" -X POST --data "$2"
+        curl --silent --netrc --user-agent --location "Commando-Cli/$VERSION $CURL_VERSION" "https://$API_ENDPOINT/v1/$1" -X POST --data "$2"
     else
-        curl --silent --netrc --user-agent "Commando-Cli/$VERSION $USER $CURL_VERSION" "https://$API_ENDPOINT/v1/$1"
+        curl --silent --netrc --user-agent --location "Commando-Cli/$VERSION $CURL_VERSION" "https://$API_ENDPOINT/v1/$1"
     fi
 }
 
@@ -43,7 +43,7 @@ case "$COMMAND" in
         if [ -e $NETRC ] && grep -Fxq "machine $API_ENDPOINT" $NETRC; then
             ACCOUNT_ALIAS=$(awk '/$API_ENDPOINT/{getline; print $2}' $NETRC)
             printf "You are already authenticated. To unauthenticate, run:\n\n\tcommando unauth"
-            exit 1
+            exit 4
         fi
 
         read -r -p "Enter your account alias: " ACCOUNT_ALIAS
@@ -117,7 +117,7 @@ EOF
 
         if [ "$RECIPE_ID" == "" ]; then
             printf "Missing required argument recipe id.\n\nUsage:\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)"
-            exit 1
+            exit 4
         fi
 
         check_auth
@@ -144,7 +144,7 @@ EOF
             curl_request "recipes/$RECIPE_ID/execute" "groups[]=$GROUP"
         else
             printf "Missing or invalid option.\n\nUsage:\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)"
-            exit 1
+            exit 4
         fi
 
         ;;
@@ -155,7 +155,7 @@ EOF
 
         if [ "$EXECUTION_QUEUE_ID" == "" ]; then
             printf "Missing required argument execution queue id.\n\nUsage:\n\tcommando execution-queue <execution-queue-id>"
-            exit 1
+            exit 4
         fi
 
         check_auth
@@ -170,7 +170,7 @@ EOF
 
         if [ "$EXECUTION_ID" == "" ]; then
             printf "Missing required argument execution id.\n\nUsage:\n\tcommando executions <execution-id>"
-            exit 1
+            exit 4
         fi
 
         check_auth
@@ -188,7 +188,11 @@ EOF
     *)
 
         printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)\n\tcommando execution-queue <execution-queue-id>\n\tcommando executions <execution-id>\n\tcommando (version | --version)\n\tcommando (help | --help)"
-        exit 1
+
+        if [ "$COMMAND" != "help" ] && [ "$COMMAND" != "--help" ]; then
+            exit 4
+        fi
+
         ;;
 
 esac
