@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+### 1.5 - *3/27/2018*
+- Fixed bug sending the incorrect user-agent. Was previously sending the curl flag `--location` as the user-agent.
+
 ### 1.4 - *3/1/2018*
 - Error exit code changed from `1` to `4` since codes 1-3 are reserved.
 - `help` command now returns a successful `0` exit code instead of error.

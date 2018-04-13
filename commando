@@ -7,7 +7,7 @@
 
 set -eo pipefail; [[ $TRACE ]] && set -x
 
-VERSION="1.4"
+VERSION="1.5"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -31,9 +31,9 @@ function curl_request() {
     CURL_VERSION=$(curl --version | sed -n 1p)
 
     if [ "$2" != "" ]; then
-        curl --silent --netrc --user-agent --location "Commando-Cli/$VERSION $CURL_VERSION" "https://$API_ENDPOINT/v1/$1" -X POST --data "$2"
+        curl --silent --netrc --location --user-agent "Commando-Cli/$VERSION $CURL_VERSION" "https://$API_ENDPOINT/v1/$1" -X POST --data "$2"
     else
-        curl --silent --netrc --user-agent --location "Commando-Cli/$VERSION $CURL_VERSION" "https://$API_ENDPOINT/v1/$1"
+        curl --silent --netrc --location --user-agent "Commando-Cli/$VERSION $CURL_VERSION" "https://$API_ENDPOINT/v1/$1"
     fi
 }
 
