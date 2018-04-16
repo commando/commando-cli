@@ -37,12 +37,12 @@
 <pre><code>Usage:
     commando auth
     commando unauth
-    commando servers [&lt;server-id&gt;]
-    commando groups [&lt;group-id&gt;]
-    commando recipes [&lt;recipe-id&gt;]
-    commando execute &lt;recipe-id&gt; (--server=&lt;server-id&gt; | --groups=&lt;group-id&gt;,&lt;group-id&gt;,...)
-    commando execution-queue &lt;execution-queue-id&gt;
-    commando executions &lt;execution-id&gt;
+    commando servers [<server-id>]
+    commando groups [<group-id>]
+    commando recipes [<recipe-id>]
+    commando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)
+    commando execution-queue <execution-queue-id>
+    commando executions <execution-id>
     commando (version | --version)
     commando (help | --help)
 </code></pre>
@@ -63,15 +63,13 @@
 <h2>
 <a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<pre><code>cd "$HOME"
-git clone https://github.com/commando/commando-cli.git
+<pre><code>git clone https://github.com/commando/commando-cli.git
 chmod +x commando-cli/commando
 </code></pre>
 
 <p>Optionally, you may create a symbolic link in <code>/usr/local/bin</code>:</p>
 
-<pre><code>ln -s "$HOME"/commando-cli/commando /usr/local/bin
-</code></pre>
+<pre><code>sudo ln -s commando-cli/commando /usr/local/bin</code></pre>
 
 <h2>
 <a id="authentication" class="anchor" href="#authentication" aria-hidden="true"><span class="octicon octicon-link"></span></a>Authentication</h2>
