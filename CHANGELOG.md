@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+### 1.6 - *7/4/2018*
+- Added support for getting all in the `execution-queue`. Sorted by date created descending and limited to 100 results.
+
 ### 1.5 - *3/27/2018*
 - Fixed bug sending the incorrect user-agent. Was previously sending the curl flag `--location` as the user-agent.
 
@@ -17,7 +20,7 @@ CHANGELOG
 - Updated copyright to 2017. Happy New Year!
 
 ### 1.3 - *10/6/2016*
-- Added the ability to provide a custom api endpoint by setting the environmental variable `API_ENDPOINT`.
+- Added the ability to provide a custom api endpoint by setting the environment variable `API_ENDPOINT`.
 
 Example:
 

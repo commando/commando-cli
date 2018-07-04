@@ -7,7 +7,7 @@
 
 set -eo pipefail; [[ $TRACE ]] && set -x
 
-VERSION="1.5"
+VERSION="1.6"
 
 COMMAND=$1
 NETRC=~/.netrc
@@ -151,16 +151,15 @@ EOF
 
     "execution-queue")
 
+        check_auth
+
         EXECUTION_QUEUE_ID=$2
 
         if [ "$EXECUTION_QUEUE_ID" == "" ]; then
-            printf "Missing required argument execution queue id.\n\nUsage:\n\tcommando execution-queue <execution-queue-id>"
-            exit 4
+            curl_request "execution-queue"
+        else
+            curl_request "execution-queue/$EXECUTION_QUEUE_ID"
         fi
-
-        check_auth
-
-        curl_request "execution-queue/$EXECUTION_QUEUE_ID"
 
         ;;
 
@@ -187,7 +186,7 @@ EOF
 
     *)
 
-        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)\n\tcommando execution-queue <execution-queue-id>\n\tcommando executions <execution-id>\n\tcommando (version | --version)\n\tcommando (help | --help)"
+        printf "Usage:\n\tcommando auth\n\tcommando unauth\n\tcommando servers [<server-id>]\n\tcommando groups [<group-id>]\n\tcommando recipes [<recipe-id>]\n\tcommando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)\n\tcommando execution-queue [<execution-queue-id>]\n\tcommando executions <execution-id>\n\tcommando (version | --version)\n\tcommando (help | --help)"
 
         if [ "$COMMAND" != "help" ] && [ "$COMMAND" != "--help" ]; then
             exit 4

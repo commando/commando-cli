@@ -9,7 +9,7 @@ Usage:
     commando groups [<group-id>]
     commando recipes [<recipe-id>]
     commando execute <recipe-id> (--server=<server-id> | --groups=<group-id>,<group-id>,...)
-    commando execution-queue <execution-queue-id>
+    commando execution-queue [<execution-queue-id>]
     commando executions <execution-id>
     commando (version | --version)
     commando (help | --help)
@@ -69,7 +69,7 @@ Run An Execution
         "id": "usr_9ukjE540e4870aace5VFr",
         "ip_address": "198.199.100.1",
         "geo_ip": "San Francisco, California, United States",
-        "user_agent": "Commando-Cli/1.5 curl 7.37.1 (x86_64-apple-darwin14.0) libcurl/7.37.1 SecureTransport zlib/1.2.5"
+        "user_agent": "Commando-Cli/1.6 curl 7.37.1 (x86_64-apple-darwin14.0) libcurl/7.37.1 SecureTransport zlib/1.2.5"
     },
     "events": [
         {
